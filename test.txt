@@ -1,0 +1,19 @@
+.states
+   S qEE
+   F qEO
+   qOE
+   qOO
+
+.alphabet
+   0 1
+
+.transitions
+   qEE 0 qEO
+   qEE 1 qOE
+   qEO 0 qEE
+   qEO 1 qOO
+   qOE 0 qOO
+   qOE 1 qEE
+   qOO 0 qOE
+   qOO 1 qEO
+
