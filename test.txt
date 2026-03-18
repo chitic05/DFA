@@ -1,3 +1,4 @@
+#1-PAR SI 0-IMPAR
 .states
    S qEE
    F qEO
