@@ -120,19 +120,30 @@ void DFA::addTransition(const std::string& from, const std::string& symbol, cons
             for(char c : this->alphabet){
                 this->transitions[from][c] = to;
             }
+        }else if(symbol == "EPSILON"){
+            this->transitions[from]['\0']=to;
         }else throw std::runtime_error("Simbolul nu apartine alfabetului!\n");
     }else throw std::runtime_error("Nu exista state-ul respectiv\n");
 }
 
 bool DFA::accepts(const std::string& word){
     std::string current = startingState;
-
+    
     for (char c : word) {
+        bool onGoing = false;
+        do{
+            onGoing = false;
+            if(transitions[current].find('\0') != transitions[current].end()){
+                if(transitions[current]['\0'] == current){
+                    throw std::runtime_error("Infinite epsilon loop!");
+                }
+                current = transitions[current]['\0'];
+                onGoing = true;
+            }
+        }while(onGoing);
         if (transitions[current].find(c) == transitions[current].end())
             return false;
-
         current = transitions[current][c];
     }
-
     return finalStates.count(current) > 0;
 }
